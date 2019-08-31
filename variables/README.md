@@ -9,8 +9,8 @@ Hay 4 tipos de variables básicas.
 - bool Variable binaria True/Flase
 
 ### Metodos útiles
-print() Mostrar un mensaje por consola de comandos.
-input() Metodo para tomar datos por la consola de comandos.
+- print() Mostrar un mensaje por consola de comandos.
+- input() Metodo para tomar datos por la consola de comandos.
 
 ### Operadores basicos
 - "+" Suma
