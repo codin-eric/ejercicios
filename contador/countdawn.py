@@ -9,6 +9,7 @@ TODO:
 """
 
 from datetime import datetime
+from time import sleep
 
 
 def to_file(dir, time):
@@ -16,16 +17,22 @@ def to_file(dir, time):
         f.write(time)
 
 
-now = datetime.now()
+dir = "timer.txt"
 end_date = datetime.strptime("21:00:00", "%H:%M:%S")
+now = datetime.now()
 
-faltan = end_date - now
+while end_date <= now:
+    faltan = end_date - now
 
-hours = faltan.seconds // 3600
-minutes = (faltan.seconds // 60) % 60
-secs = (faltan.seconds) % 60
+    hours = faltan.seconds // 3600
+    minutes = (faltan.seconds // 60) % 60
+    secs = (faltan.seconds) % 60
 
-if hours >= 1:
-    print(f"faltan {hours}:{minutes}:{secs}")
-else:
-    print(f"faltan {minutes}:{secs}")
+    if hours >= 1:
+        msg = f"{hours}:{minutes}:{secs}"
+    else:
+        msg = f"{minutes}:{secs}"
+
+    to_file(dir, msg)
+    sleep(1)
+    now = datetime.now()
