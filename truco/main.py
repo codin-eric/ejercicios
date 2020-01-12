@@ -115,5 +115,3 @@ while True:
 
         time.sleep(GAME_DELTA_TIME)
         ronda += 1
-
-

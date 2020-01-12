@@ -18,16 +18,18 @@ class Player():
     def agarrar_carta(self, carta):
         self.mano.append(carta)
 
-    def mostrar_mano(self):
+    def _mostrar_mano(self):
         if len(self.mano) <= 0:
-            print("No tengo na'a ami'o")
+            res = "No tengo na'a ami'o"
         else:
-            print(f"Mano de {self.nombre}")
-            for i, carta in enumerate(self.mano, 0):
-                print(f"{i} - {carta.mostrar()}")
+            res = f"Mano de {self.nombre}"
+            for i, carta in enumerate(self.mano, 1):
+                res = f"{res} \n {i} - {carta.mostrar()}"
+        
+        return res
     
     def jugar_carta(self):
-        self.mostrar_mano()
+        print(self._mostrar_mano())
         opt = int(input("Cual carta queres jugar? "))
 
         while opt < 1 or opt > len(self.mano):
