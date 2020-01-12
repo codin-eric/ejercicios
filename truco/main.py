@@ -1,7 +1,4 @@
 """
-TODO: 
-    - Parda la mejor
-
 Reglas del juego:
     Init:
         - Se crea el mazo
@@ -14,12 +11,6 @@ Reglas del juego:
         - p2 puede cantar truco
         - p2 juega una carta
 
-    - Logica del envido
-        px canta envido                     2 no querido 1
-        py acepta - rechaza - envido        4 no querido 3
-        px acepta - rechaza - real envido   6 no querido 5
-        asi hasta falta envido              Los puntos que le faltan al otro hasta 15 o hasta 30 no querido 7
-    
     segundo turno:
         - El ganador del primer turno tira una carta
         - p1 puede cantar truco
@@ -36,6 +27,13 @@ Reglas del juego:
         - p2 puede cantar truco
         - p2 juega una carta
 
+    - Logica del envido
+        Solo en la primer mano!
+        px canta envido                     2 no querido 1
+        py acepta - rechaza - envido        4 no querido 3
+        px acepta - rechaza - real envido   6 no querido 5
+        asi hasta falta envido              Los puntos que le faltan al otro hasta 15 o hasta 30 no querido 7
+
     - logica del truco:
         px no canta nada pero gana la mano 1 punto
         px canta truco                     2 no querido 1
@@ -44,33 +42,83 @@ Reglas del juego:
 
 """
 
-from truco_clases import Mazo, Player, Core
+import os
+import time
+from truco_clases import Mazo, Player
 
-
-def render_display(p1, p2, turno):
-    print(f"Turno: {turno}")
-    p1.mostrar_mano()
-    print("")
-    p2.mostrar_mano()
-
-    print("1- Tirar carta | 2- Cantar envido | 3- Cantar truco")
-    # [TODO] 08 January 2020 validar entrada
-    op = input("Ingresa opción: ")
-
-
-# Init juego
+# Init
 mazo = Mazo()
-p1 = Player("Edic")
-p2 = Player("CPU")
 
-for i in range(3):
-    p1.agarrar(mazo.agarrar())
-    p2.agarrar(mazo.agarrar())
+p1 = Player("Lenny")
+p2 = Player("Karl")
 
 
-# Game Loop
+#Game loop
 while True:
-    render_display(p1, p2, 1)
+    os.system("clear")
+    # Llevar conteo de puntos
+    print(f"{p1.nombre} tiene {p1.puntos} puntos")
+    print(f"{p2.nombre} tiene {p2.puntos} puntos")
+    print("")
 
-    print("Primer turno")
-    cmd = input("Que quere hace' ? ")
+    # Se reparten las 3 cartas
+    p1.mano = []
+    p2.mano = []
+
+    for i in range(3):
+        p1.agarrar_carta(mazo.agarrar())
+        p2.agarrar_carta(mazo.agarrar())
+
+    ganador = False
+    ronda = 1
+    
+    p1.primera = False
+    p2.primera = False
+
+    while ronda <= 3 and ganador == False:
+        print(f"Ronda {ronda}")
+        p1.jugar_carta()
+        print(f"{p1.nombre} - juega {p1.carta_jugada.mostrar()}")
+        time.sleep(3)
+        print("")
+
+        p2.jugar_carta()
+        print(f"{p2.nombre} - juega {p2.carta_jugada.mostrar()}")
+        time.sleep(3)
+        print("")
+        print("")
+        
+        # comparar
+        if p1.carta_jugada.valor > p2.carta_jugada.valor:
+            print(f"{p1.nombre} gana el turno")
+            if p1.primera:
+                print(f"gano {p1.nombre}!")
+                ganador = True
+                # Dar puntos
+            else:
+                p1.primera = True
+            
+            if p1.primera:
+                    print(f"{p1.nombre} gano la mano!")
+                    p1.puntos += 1 
+            else:
+                p1.primera = True
+
+        elif p1.carta_jugada.valor < p2.carta_jugada.valor:
+            print(f"{p2.nombre} gana el turno")
+            paux = p2
+            p2 = p1
+            p1 = paux
+
+            if p1.primera:
+                    print(f"{p1.nombre} gano la mano!")
+                    p1.puntos += 1
+            else:
+                p1.primera = True
+        else:
+            print("Empate parda la mejor!")
+
+        time.sleep(3)
+        ronda += 1
+
+
