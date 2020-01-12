@@ -79,7 +79,7 @@ while True:
         print(f"Ronda {ronda}")
         p1.jugar_carta()
         print(f"{p1.nombre} - juega {p1.carta_jugada.mostrar()}")
-        time.sleep(3)
+        time.sleep(1)
         print("")
 
         p2.jugar_carta()
@@ -89,34 +89,26 @@ while True:
         print("")
         
         # comparar
-        if p1.carta_jugada.valor > p2.carta_jugada.valor:
-            print(f"{p1.nombre} gana el turno")
+        if p1.carta_jugada.valor == p2.carta_jugada.valor:
+            # Parda la mejor
+            #Con esta logica el que gane segunda gana!
+            p1.primera = True
+            p2.primera = True
+        else:
+            # Si gana p2 pasa a ser el primero en la proxima ronda
+            if p1.carta_jugada.valor < p2.carta_jugada.valor:
+                paux = p2
+                p2 = p1
+                p1 = paux
+
             if p1.primera:
                 print(f"gano {p1.nombre}!")
                 ganador = True
                 # Dar puntos
+                p1.puntos += 1
             else:
+                print(f"{p1.nombre} gana el turno")
                 p1.primera = True
-            
-            if p1.primera:
-                    print(f"{p1.nombre} gano la mano!")
-                    p1.puntos += 1 
-            else:
-                p1.primera = True
-
-        elif p1.carta_jugada.valor < p2.carta_jugada.valor:
-            print(f"{p2.nombre} gana el turno")
-            paux = p2
-            p2 = p1
-            p1 = paux
-
-            if p1.primera:
-                    print(f"{p1.nombre} gano la mano!")
-                    p1.puntos += 1
-            else:
-                p1.primera = True
-        else:
-            print("Empate parda la mejor!")
 
         time.sleep(3)
         ronda += 1
