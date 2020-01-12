@@ -46,6 +46,9 @@ import os
 import time
 from truco_clases import Mazo, Player
 
+#Consts
+GAME_DELTA_TIME = 1 # Tiempo de espera en segundos entre momentos claves
+
 # Init
 mazo = Mazo()
 
@@ -79,12 +82,12 @@ while True:
         print(f"Ronda {ronda}")
         p1.jugar_carta()
         print(f"{p1.nombre} - juega {p1.carta_jugada.mostrar()}")
-        time.sleep(1)
+        time.sleep(GAME_DELTA_TIME)
         print("")
 
         p2.jugar_carta()
         print(f"{p2.nombre} - juega {p2.carta_jugada.mostrar()}")
-        time.sleep(3)
+        time.sleep(GAME_DELTA_TIME)
         print("")
         print("")
         
@@ -110,7 +113,7 @@ while True:
                 print(f"{p1.nombre} gana el turno")
                 p1.primera = True
 
-        time.sleep(3)
+        time.sleep(GAME_DELTA_TIME)
         ronda += 1
 
 
