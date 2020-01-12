@@ -23,9 +23,7 @@ class Player():
             print("No tengo na'a ami'o")
         else:
             print(f"Mano de {self.nombre}")
-            i = 0
-            for carta in self.mano:
-                i += 1
+            for i, carta in enumerate(self.mano, 0):
                 print(f"{i} - {carta.mostrar()}")
     
     def jugar_carta(self):

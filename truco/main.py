@@ -47,7 +47,7 @@ import time
 from truco_clases import Mazo, Player
 
 #Consts
-GAME_DELTA_TIME = 1 # Tiempo de espera en segundos entre momentos claves
+GAME_DELTA_TIME = 1 # Tiempo de espera en segundos e ntre momentos claves
 
 # Init
 mazo = Mazo()
