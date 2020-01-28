@@ -13,6 +13,8 @@ class Player():
         self.nombre = nombre
         self.puntos = 0
         self.mano = []
+        self.cartas_jugadas = []
+        self.modificador_truco = 1
         self.primera = False
     
     def agarrar_carta(self, carta):
@@ -60,6 +62,7 @@ class Carta():
         self.numero = numero
         self.npalo = palo
         self.palo = palos[palo]
+        self.imagen = f"img/cartas/{self.npalo}_{self.numero}.jpg"
         self.valor = self._rankear()
 
     def mostrar(self):
