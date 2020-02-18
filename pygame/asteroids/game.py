@@ -57,11 +57,14 @@ class Nave:
                 self.speed = [0, 0]
 
     def collision(self, other):
-        escalar_distance = np.sum(np.absolute(self.pos - other.pos))
+
+        escalar_distance = np.hypot(
+            self.pos[0] - other.pos[0], self.pos[1] - other.pos[1]
+        )
         print(escalar_distance)
+        pygame.draw.line(screen, WHITE, self.pos, other.pos, 1)
         if escalar_distance <= (self.size + other.size):
-            self.color = LIGHT_BLUE
-            other.color = LIGHT_BLUE
+            print("HELLO!")
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos.astype(int), self.size, 0)
@@ -74,9 +77,10 @@ clock = pygame.time.Clock()  ## Syncing the FPS
 font_name = pygame.font.match_font("arial")
 screen_running = True
 player = Nave(100, 100, WHITE)
-player.draw()
+
 enemy = Nave(SCREEN_RESOLUTION[0] * 0.5, SCREEN_RESOLUTION[1] * 0.5, COOL_RED)
 enemy.draw()
+player.draw()
 
 pygame.display.update()
 
